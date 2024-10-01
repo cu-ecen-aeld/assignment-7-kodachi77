@@ -17,6 +17,7 @@
 
 #include <linux/module.h>
 #include <linux/init.h>
+#include <linux/printk.h>
 
 #include <linux/kernel.h> /* printk() */
 #include <linux/fs.h>     /* everything... */
@@ -49,6 +50,7 @@ ssize_t faulty_read(struct file *filp, char __user *buf,
 ssize_t faulty_write (struct file *filp, const char __user *buf, size_t count,
 		loff_t *pos)
 {
+	printk(KERN_ALERT "KERNEL ALERT: calling faulty module at %s %d\n",__FUNCTION__,__LINE__);
 	/* make a simple fault by dereferencing a NULL pointer */
 	*(int *)0 = 0;
 	return 0;
